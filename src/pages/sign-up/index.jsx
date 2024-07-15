@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { motion, AnimatePresence } from 'framer-motion';
 import loginImage from '../../assets/images/login.jpg';
 import { apiLogin } from '../../services/auth';
+import { useNavigate } from 'react-router-dom';
 
 const formVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -20,6 +21,11 @@ const containerVariants = {
 };
 
 const SignUpForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  console.log(isSubmitting);
+  const navigate = useNavigate()
+
+
   const { register: registerSignUp, handleSubmit: handleSubmitSignUp, formState: { errors: errorsSignUp } } = useForm();
   const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin } } = useForm();
 
@@ -37,14 +43,23 @@ const SignUpForm = () => {
   const handleLoginSubmit = async (data) => {
     console.log('Login Form Data:', data);
     window.alert("You've successfully logged in!");
+    setIsSubmitting(true);
+    console.log(isSubmitting);
     try {
       const res = await apiLogin({
-        email: data.email,
+        email: data.emailOrUsername,
         password: data.password,
       });
-      console.log("Response", res);
+      console.log("Response: ", res.data);
+      // redirect user to dashboard
+      navigate("/dashboard")
+
+
     } catch (error) {
       console.log(error);
+
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
