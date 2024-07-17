@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import loginImage from '../../assets/images/login.jpg';
-import { apiLogin } from '../../services/auth';
+import { apiCheckUsernameExists, apiLogin, apiSignUp } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Loader from '../../components/Loader';
+import { debounce } from 'lodash';
 
 const formVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -22,42 +26,115 @@ const containerVariants = {
 
 const SignUpForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  console.log(isSubmitting);
-  const navigate = useNavigate()
+  const [signupSuccess, setSignupSuccess] = useState(false);
+  const [usernameAvailable, setUsernameAvailable] = useState(false);
+  const [usernameNotAvailable, setUsernameNotAvailable] = useState(false);
+  const [isUsernameLoading, setIsUsernameLoading] = useState(false);
 
+  const navigate = useNavigate();
 
-  const { register: registerSignUp, handleSubmit: handleSubmitSignUp, formState: { errors: errorsSignUp } } = useForm();
+  const { register: registerSignUp, handleSubmit: handleSubmitSignUp, watch, formState: { errors: errorsSignUp } } = useForm();
   const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin } } = useForm();
 
   const [isLoginForm, setIsLoginForm] = useState(false);
+
+  const userNameWatch = watch("username");
 
   const handleToggleForm = () => {
     setIsLoginForm(!isLoginForm);
   };
 
-  const handleSignUpSubmit = data => {
-    console.log('Sign Up Form Data:', data);
-    window.alert("You've successfully signed up!");
+  const checkUsername = async (username) => {
+    setIsUsernameLoading(true);
+    try {
+      const res = await apiCheckUsernameExists(username);
+      console.log(res.data);
+      const user = res.data.user;
+      if (user) {
+        setUsernameNotAvailable(true);
+        setUsernameAvailable(false);
+      } else {
+        setUsernameAvailable(true);
+        setUsernameNotAvailable(false);
+      }
+    } catch (error) {
+      console.error('Error checking username:', error);
+      toast.error("An error occured!");
+    } finally {
+      setIsUsernameLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const debouncedSearch = debounce(async () => {
+      if (userNameWatch) {
+        await checkUsername(userNameWatch);
+      }
+    }, 1000)
+    debouncedSearch();
+
+    return () => {
+      debouncedSearch.cancel();
+    }
+
+  }, [userNameWatch]);
+
+  const handleSignUpSubmit = async (data) => {
+    if (!usernameAvailable) {
+      toast.error('Username is already taken. Please choose another one.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    let payload = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      userName: data.username,
+      password: data.password,
+      confirmedPassword: data.password,
+      email: data.email,
+    };
+    if (data.otherNames) {
+      payload = { ...payload, otherNames: data.otherNames };
+    }
+    try {
+      const res = await apiSignUp(payload);
+      toast.success("Signup successful!");
+      setSignupSuccess(true);
+      setTimeout(() => {
+        setSignupSuccess(false);
+        setIsLoginForm(true);
+      }, 3000);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        if (error.response.data === 'User has already signed up') {
+          toast.error('User already exists. Please log in.');
+        } else {
+          toast.error('Unauthorized. Please check your credentials.');
+        }
+      } else {
+        console.error('Signup error:', error);
+        toast.error("An error occured!");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleLoginSubmit = async (data) => {
-    console.log('Login Form Data:', data);
-    window.alert("You've successfully logged in!");
     setIsSubmitting(true);
-    console.log(isSubmitting);
     try {
       const res = await apiLogin({
         email: data.emailOrUsername,
         password: data.password,
       });
-      console.log("Response: ", res.data);
-      // redirect user to dashboard
-      navigate("/dashboard")
-
-
+      toast.success(res.data);
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 3000);
     } catch (error) {
-      console.log(error);
-
+      console.error('Login error:', error);
+      toast.error("An error occured!");
     } finally {
       setIsSubmitting(false);
     }
@@ -88,7 +165,17 @@ const SignUpForm = () => {
             </button>
           </div>
 
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
+            {isSubmitting && (
+              <div className="flex justify-center mb-4">
+                <Loader />
+              </div>
+            )}
+            {signupSuccess && (
+              <div className="flex justify-center mb-4 text-green-500 font-bold">
+                Signup Successful!
+              </div>
+            )}
             {isLoginForm ? (
               <motion.div
                 key="login"
@@ -161,12 +248,29 @@ const SignUpForm = () => {
                   </motion.div>
 
                   <motion.div variants={formVariants}>
+                    <label className="block mb-1 text-gray-700">Other Names</label>
+                    <input
+                      {...registerSignUp('otherNames')}
+                      className="w-full px-3 py-1 border border-gray-300 rounded bg-white bg-opacity-75"
+                    />
+                  </motion.div>
+
+                  <motion.div variants={formVariants}>
                     <label className="block mb-1 text-gray-700">Username</label>
                     <input
                       {...registerSignUp('username', { required: true })}
                       className="w-full px-3 py-1 border border-gray-300 rounded bg-white bg-opacity-75"
                     />
                     {errorsSignUp.username && <span className="text-red-500">This field is required</span>}
+                    <div className='flex items-center gap-x-2'>
+                      {isUsernameLoading && <Loader />}
+                      {usernameNotAvailable && (
+                        <p className='text-red-500'>Username is already taken</p>
+                      )}
+                      {usernameAvailable && (
+                        <p className='text-green-500'>Username is available</p>
+                      )}
+                    </div>
                   </motion.div>
 
                   <motion.div variants={formVariants}>
@@ -207,7 +311,7 @@ const SignUpForm = () => {
                       className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-200"
                       variants={formVariants}
                     >
-                      Sign Up
+                      {isSubmitting ? <Loader /> : "Sign Up"}
                     </motion.button>
                   </div>
                 </form>
