@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit3, Trash2 } from 'lucide-react'; // Example icons, adjust imports as needed
+import { Edit3, Trash2 } from 'lucide-react';
 
 const ProjectsCard = () => {
     return (
