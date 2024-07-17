@@ -16,7 +16,18 @@ const achievements = [
     deleted: false,
     edit: true,
   },
-  // Add more achievements as needed
+  {
+    title: 'B.Sc. Computer Science',
+    description: 'Graduated with honors from XYZ University.',
+    deleted: false,
+    edit: true,
+  },
+  {
+    title: 'M.Sc. Data Science',
+    description: 'Completed with distinction from ABC Institute.',
+    deleted: false,
+    edit: true,
+  },
 ];
 
 const Education = () => {

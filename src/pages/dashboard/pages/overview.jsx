@@ -1,6 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { apiGetAchievements } from '../../../services/achievements';
+import { apiGetSkills } from '../../../services/skills';
+import { apiGetProjects } from '../../../services/projects';
+import { apiGetVolunteering } from '../../../services/volunteering';
+import { apiGetEducation } from '../../../services/education';
+import { apiGetExperiences } from '../../../services/experiences';
+
 
 const OverviewSection = () => {
+
+const [data, setData] = useState({
+  skills: 0, 
+  projects: 0,
+  achievements: 0,
+  volunteering: 0,
+  education: 0,
+  experiences: 0,
+  
+});
+
+const [IsLoading, setIsLoading] = useState(false);
+
+const getData = async() => {
+  setIsLoading(true);
+  try {
+   
+    
+  const [totalSkills, 
+    totalAchievements, 
+    totalProjects, 
+    totalVolunteering, 
+    totalEducation, 
+    totalExperiences,
+  ] = await Promise.all([
+    apiGetSkills,
+    apiGetAchievements,
+    apiGetProjects,
+    apiGetVolunteering,
+    apiGetEducation,
+    apiGetExperiences,
+
+  ]);
+
+  const newData = {
+    skills: totalSkills.length, 
+    projects: totalProjects.length,
+    achievements: totalAchievements.length,
+    volunteering: totalVolunteering.length,
+    education: totalEducation.length,
+    experiences: totalExperiences.length,
+  };
+
+  setData(newData);
+  } catch (error) {
+    console.log(error)
+  }finally{
+    setIsLoading(false)
+  }
+}
+
+useEffect(()=> {
+// getData()
+},[])
+
   return (
     <section className="bg-blue-900 text-white h-screen flex flex-col justify-center">
       <div className="container mx-auto text-center px-6">

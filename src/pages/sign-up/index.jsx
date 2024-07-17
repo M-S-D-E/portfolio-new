@@ -128,7 +128,10 @@ const SignUpForm = () => {
         email: data.emailOrUsername,
         password: data.password,
       });
-      toast.success(res.data);
+      console.log("Response: ", res.data);
+      localStorage.setItem("accessToken", res.data.accessToken);
+
+      toast.success(res.data.message);
       setTimeout(() => {
         navigate("/dashboard");
       }, 3000);
