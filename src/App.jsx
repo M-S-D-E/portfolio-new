@@ -12,10 +12,16 @@ import Experiences from "./pages/dashboard/pages/experiences";
 import Profile from "./pages/dashboard/pages/profile";
 import Education from "./pages/dashboard/pages/education";
 import Volunteering from "./pages/dashboard/pages/volunteering";
-
+import Dashboard from "./pages/dashboard";
+import Preview from "./pages/preview";
+import Landing from "./pages/landing";
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Landing />
+    },
     {
       path: "sign-up",
       element: <SignUp />,
@@ -70,7 +76,11 @@ function App() {
         },
       ],
     },
-  ]);
+    {
+      path: "preview",
+      element: <Preview />
+    }
+  ])
 
   return <RouterProvider router={router} />;
 }
