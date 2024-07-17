@@ -1,33 +1,17 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Edit3, Trash2 } from 'lucide-react';
 
-const EducationCard = () => {
-    const EducationCard = ({ title, description, deleted, edit, id }) => {
-        const navigate = useNavigate();
-      
-        const handleEdit = () => {
-          navigate(`/edit-education/${id}`); // Navigate to the edit page with the card's id
-        };
-      
-        return (
-          <div className="h-60 w-60 bg-sky-700 rounded-lg shadow-lg p-4 flex flex-col">
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex space-x-2">
-                <button className="text-white hover:text-gray-300">
-                  {deleted}
-                </button>
-                <button className="text-white hover:text-gray-300" onClick={handleEdit}>
-                  {edit}
-                </button>
-              </div>
-            </div>
-            <div className="flex flex-col justify-between h-full">
-              <div>
-                <h3 className="text-white text-lg font-semibold mb-2">{title}</h3>
-                <p className="text-gray-200 text-sm">{description}</p>
-              </div>
-            </div>
-          </div>
-        );
-      };
-export default EducationCard
+const EducationCard = ({ title, description, deleted, edit }) => {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+      <h3 className="text-2xl font-semibold mb-2 text-gray-800">{title}</h3>
+      <p className="text-gray-600 mb-4">{description}</p>
+      <div className="flex justify-end space-x-3">
+        {edit && <Edit3 className="w-6 h-6 text-blue-500 cursor-pointer" />}
+        {deleted && <Trash2 className="w-6 h-6 text-red-500 cursor-pointer" />}
+      </div>
+    </div>
+  );
+};
+
+export default EducationCard;
