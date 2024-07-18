@@ -3,9 +3,9 @@ import { Edit3, Trash2 } from 'lucide-react';
 
 const ProjectsCard = () => {
     return (
-        <div className='h-40 w-40 bg-sky-700 rounded-lg shadow-lg p-4 flex flex-col'>
-            <div className='flex justify-between items-start mb-4'>
-                <div className='flex space-x-2'>
+        <div className="h-40 w-full bg-sky-700 rounded-lg shadow-lg p-4 flex flex-col justify-between">
+            <div className="flex justify-end space-x-2">
+                <div className='flex justify-end space-x-2'>
                     <button className='text-white hover:text-gray-300'>
                         <Trash2 size={20} />
                     </button>

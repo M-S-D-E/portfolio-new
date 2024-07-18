@@ -9,8 +9,8 @@ const AchievementsCard = ({ title, description, deleted, edit, id }) => {
   }
 
   return (
-    <div className="h-60 w-60 bg-sky-700 rounded-lg shadow-lg p-4 flex flex-col">
-      <div className="flex justify-between items-start mb-4">
+    <div className="h-40 w-full bg-sky-700 rounded-lg shadow-lg p-4 flex flex-col justify-between">
+      <div className="flex justify-end space-x-2">
         <div className="flex space-x-2">
           <button className="text-white hover:text-gray-300">
             {deleted}
