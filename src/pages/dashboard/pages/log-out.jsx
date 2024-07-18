@@ -6,4 +6,4 @@ const Log-out = () => {
   )
 }
 
-export default Log-out
+export default Log - out

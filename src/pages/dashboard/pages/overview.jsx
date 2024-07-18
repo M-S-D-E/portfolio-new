@@ -32,6 +32,7 @@ const getData = async() => {
     totalVolunteering, 
     totalEducation, 
     totalExperiences,
+    
   ] = await Promise.all([
     apiGetSkills,
     apiGetAchievements,
