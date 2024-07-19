@@ -129,7 +129,7 @@ const SignUpForm = () => {
         password: data.password,
       });
       console.log("Response: ", res.data);
-      localStorage.setItem("accessToken", res.data.accessToken);
+      localStorage.setItem("accessToken", res.data.acessToken);
 
       toast.success(res.data.message);
       setTimeout(() => {

@@ -1,6 +1,6 @@
 import { apiClient } from "./config";
 
-export const apiGetExperience = async () => {
+export const apiGetExperiences = async () => {
     return apiClient.post("/experiences");
 };
 

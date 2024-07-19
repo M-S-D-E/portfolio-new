@@ -1,28 +1,17 @@
 import React from 'react';
 import { Edit3, Trash2 } from 'lucide-react';
 
-const ProjectsCard = () => {
-    return (
-        <div className='h-40 w-40 bg-sky-700 rounded-lg shadow-lg p-4 flex flex-col'>
-            <div className='flex justify-between items-start mb-4'>
-                <div className='flex space-x-2'>
-                    <button className='text-white hover:text-gray-300'>
-                        <Trash2 size={20} />
-                    </button>
-                    <button className='text-white hover:text-gray-300'>
-                        <Edit3 size={20} />
-                    </button>
-                </div>
-            </div>
+const EducationCard = ({ title, description, deleted, edit }) => {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h3 className="text-2xl font-bold mb-2">{title}</h3>
+      <p className="text-gray-700 mb-4">{description}</p>
+      <div className="flex justify-end space-x-4">
+        {edit && <Edit3 className="w-6 h-6 text-blue-500 cursor-pointer" />}
+        {!deleted && <Trash2 className="w-6 h-6 text-red-500 cursor-pointer" />}
+      </div>
+    </div>
+  );
+};
 
-            <div className='flex flex-col items-center'>
-                <h3 className='text-white text-lg font-semibold mb-2'>Project Title</h3>
-                <p className='text-gray-200 text-sm text-center'>
-                    A brief description of the project goes here.
-                </p>
-            </div>
-        </div>
-    );
-}
-
-export default ProjectsCard;
+export default EducationCard;

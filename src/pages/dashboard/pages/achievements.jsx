@@ -13,7 +13,7 @@ const Achievements = () => {
 
   return (
     <PagesLayout headerText="Achievements" buttonText="Add New Achievement">
-      <div className="p-6 bg-gray-100 min-h-screen text-center p-12 ">
+      <div className=" bg-gray-100 min-h-screen text-center p-12 ">
         <h2 className="text-3xl font-semibold mb-6 text-gray-800">All Achievements</h2>
         <p className="text-gray-600 mb-6">Hey, here are your achievements!</p>
         <div className="gap-x-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-y-8 ">

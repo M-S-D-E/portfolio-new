@@ -1,30 +1,29 @@
 import React from 'react';
-import { Edit3, Trash2 } from 'lucide-react';
 import EducationCard from '../../../components/educationCard';
 import PagesLayout from '../layouts/pagesLayout';
 
 const achievements = [
   {
     title: 'B.Sc. Computer Science',
-    description: 'Graduated with honors from XYZ University.',
+    description: 'Graduated with honors from University of Ghana.',
     deleted: false,
     edit: true,
   },
   {
     title: 'M.Sc. Data Science',
-    description: 'Completed with distinction from ABC Institute.',
+    description: 'Completed with distinction from Technical Institute.',
     deleted: false,
     edit: true,
   },
   {
     title: 'B.Sc. Computer Science',
-    description: 'Graduated with honors from XYZ University.',
+    description: 'Graduated with honors from Stanford University.',
     deleted: false,
     edit: true,
   },
   {
     title: 'M.Sc. Data Science',
-    description: 'Completed with distinction from ABC Institute.',
+    description: 'Completed with distinction from Institute of Professional Studies.',
     deleted: false,
     edit: true,
   },

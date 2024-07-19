@@ -6,7 +6,7 @@ const PagesLayout = ({ headerText, buttonText, children, onClick }) => {
 
             <div className="flex">
                 <h1 className="text-3xl font-bold">{headerText}</h1>
-<button className="bg-sky-500 text-white px-6 py-2 ml-auto rounded-lg flex gap-x-2" onClick={onClick}> 
+<button className="bg-gray-400 text-white px-6 py-2 ml-auto rounded-lg flex gap-x-2" onClick={onClick}> 
     <PlusCircleIcon />
     {buttonText}</button>
             </div>

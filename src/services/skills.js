@@ -4,7 +4,7 @@ export const apiAddSkill = async (payload) => {
 return apiClient.post("/skills", payload);
 };
 
-export const apiGetSkill = async () => {
+export const apiGetSkills = async () => {
     return apiClient.get("/skills");
 };
 
