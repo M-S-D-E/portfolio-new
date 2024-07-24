@@ -5,16 +5,24 @@ import Overview from "./pages/dashboard/pages/overview";
 import Skills from "./pages/dashboard/pages/skills";
 import DashboardLayout from "./pages/dashboard/layouts";
 import Achievements from "./pages/dashboard/pages/achievements";
-import Socials from "./pages/dashboard/pages/socials";
 import Contact from "./pages/dashboard/pages/contact";
 import Projects from "./pages/dashboard/pages/projects";
 import Experiences from "./pages/dashboard/pages/experiences";
 import Profile from "./pages/dashboard/pages/profile";
 import Education from "./pages/dashboard/pages/education";
 import Volunteering from "./pages/dashboard/pages/volunteering";
-import Dashboard from "./pages/dashboard";
 import Preview from "./pages/preview";
 import Landing from "./pages/landing";
+import AddSkill from "./pages/dashboard/pages/addSkill";
+import AddProject from "./pages/dashboard/pages/addProject";
+import AddAchievement from "./pages/dashboard/pages/addAchievement";
+import AddExperience from "./pages/dashboard/pages/addExperience";
+import AddVolunteering from "./pages/dashboard/pages/addVolunteering";
+import AddEducation from "./pages/dashboard/pages/addEducation";
+import AuthLayout from "./pages/preview/";
+import { LogOut } from "lucide-react"; 
+import { apiGetUserDetails } from "./services/preview";
+import { toast } from "react-toastify"; 
 
 function App() {
   const router = createBrowserRouter([
@@ -22,14 +30,19 @@ function App() {
       path: '/',
       element: <Landing />
     },
-    {
-      path: "sign-up",
-      element: <SignUp />,
-    },
-    {
-      path: "login",
-      element: <Login />,
-    },
+    // {
+    //   element: <AuthLayout />,
+    //   children: [
+        // {
+        //   path: "login",
+        //   element: <Login />,
+        // },
+        {
+          path: "signup",
+          element: <SignUp />,
+        },
+    //   ],
+    // },
     {
       path: "dashboard",
       element: <DashboardLayout />,
@@ -51,10 +64,6 @@ function App() {
           element: <Achievements />,
         },
         {
-          path: "socials",
-          element: <Socials />,
-        },
-        {
           path: "contact",
           element: <Contact />,
         },
@@ -74,13 +83,56 @@ function App() {
           path: "volunteering",
           element: <Volunteering />,
         },
+        {
+          path: "logout",
+          element: <LogOut />,
+        },
+        {
+          path: "skills/add-skill",
+          element: <AddSkill />,
+        },
+        {
+          path: "achievements/add-achievement",
+          element: <AddAchievement />,
+        },
+        {
+          path: "education/add-education",
+          element: <AddEducation />,
+        },
+        {
+          path: "experiences/add-experience",
+          element: <AddExperience />,
+        },
+        {
+          path: "volunteering/add-volunteering",
+          element: <AddVolunteering />,
+        },
+        {
+          path: "projects/add-project",
+          element: <AddProject />,
+        },
+        {
+          path: "preview/:username",
+          element: <Preview />,
+          loader: async ({ params }) => {
+            const username = params.username;
+            try {
+              const response = await apiGetUserDetails(username);
+              const userProfileData = response?.data.user;
+              return userProfileData;
+            } catch (error) {
+              toast.error("An error occurred");
+              return null;
+            }
+          },
+        },
       ],
     },
     {
       path: "preview",
       element: <Preview />
     }
-  ])
+  ]);
 
   return <RouterProvider router={router} />;
 }

@@ -43,7 +43,7 @@ const Experiences = () => {
 
   return (
     <PagesLayout headerText="Experiences" buttonText="Add New Experience">
-      <div className="p-6 bg-gray-100 min-h-screen text-center p-12">
+      <div className=" bg-gray-100 min-h-screen text-center p-12">
         <h2 className="text-3xl font-semibold mb-6">All Experiences</h2>
         <p className="text-lg mb-8">Here, you can see all your experiences.</p>
         <div className="gap-x-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-y-8">
