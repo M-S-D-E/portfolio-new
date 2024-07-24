@@ -4,25 +4,29 @@ import { apiAddExperience } from '../../../services/experiences';
 import { toast } from 'react-toastify';
 import Loader from '../../../components/Loader';
 
-const AddSkill = () => {
+const AddExperience = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const onSubmit = async (data) => {
         console.log(data);
-        setIsSubmitting(true)
+        setIsSubmitting(true);
         try {
             const res = await apiAddExperience({
-                name: data.name,
-                levelOfProficiency: data.proficiency.toLowerCase(),
+                companyName: data.companyName,
+                role: data.role,
+                responsibility: data.responsibility,
+                location: data.location,
+                startDate: data.startDate,
+                endDate: data.endDate,
             });
 
             console.log(res.data);
             toast.success(res.data.message);
         } catch (error) {
             console.log(error);
-            toast.error("An error occured")
-        }finally {
+            toast.error("An error occurred");
+        } finally {
             setIsSubmitting(false);
         }
     };
@@ -30,40 +34,67 @@ const AddSkill = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-                <h2 className="text-2xl font-semibold mb-6 text-center">Add New Skill</h2>
+                <h2 className="text-2xl font-semibold mb-6 text-center">Add New Experience</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-semibold mb-2">Skill
-                            Name
-
-                        </label>
-
+                        <label className="block text-gray-700 font-semibold mb-2">Company Name</label>
                         <input
                             type="text"
-                            {...register('name', { required: 'Skill Name is required' })}
+                            {...register('companyName', { required: 'Company name is required' })}
                             className="w-full p-2 border border-gray-300 rounded-lg"
                         />
-                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+                        {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName.message}</p>}
                     </div>
-
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-semibold mb-2">Proficiency</label>
-                        <select
-                            {...register('proficiency', { required: 'Proficiency level is required' })}
+                        <label className="block text-gray-700 font-semibold mb-2">Role</label>
+                        <input
+                            type="text"
+                            {...register('role', { required: 'Role is required' })}
                             className="w-full p-2 border border-gray-300 rounded-lg"
-                        >
-                            <option value="">Select Proficiency</option>
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Advanced">Advanced</option>
-                        </select>
-                        {errors.proficiency && <p className="text-red-500 text-sm mt-1">{errors.proficiency.message}</p>}
+                        />
+                        {errors.role && <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>}
                     </div>
-
-                    <button 
-                    type="submit" 
-                    className="w-full bg-blue-600 text-white p-2 rounded-lg">
-                    {isSubmitting ? <Loader /> : "Add Skill"}
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-semibold mb-2">Responsibility</label>
+                        <textarea
+                            {...register('responsibility', { required: 'Responsibility is required' })}
+                            className="w-full p-2 border border-gray-300 rounded-lg"
+                        />
+                        {errors.responsibility && <p className="text-red-500 text-sm mt-1">{errors.responsibility.message}</p>}
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-semibold mb-2">Location</label>
+                        <input
+                            type="text"
+                            {...register('location', { required: 'Location is required' })}
+                            className="w-full p-2 border border-gray-300 rounded-lg"
+                        />
+                        {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location.message}</p>}
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-semibold mb-2">Start Date</label>
+                        <input
+                            type="date"
+                            {...register('startDate', { required: 'Start date is required' })}
+                            className="w-full p-2 border border-gray-300 rounded-lg"
+                        />
+                        {errors.startDate && <p className="text-red-500 text-sm mt-1">{errors.startDate.message}</p>}
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-semibold mb-2">End Date</label>
+                        <input
+                            type="date"
+                            {...register('endDate', { required: 'End date is required' })}
+                            className="w-full p-2 border border-gray-300 rounded-lg"
+                        />
+                        {errors.endDate && <p className="text-red-500 text-sm mt-1">{errors.endDate.message}</p>}
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-600 text-white p-2 rounded-lg flex items-center justify-center"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? <Loader /> : "Add Experience"}
                     </button>
                 </form>
             </div>

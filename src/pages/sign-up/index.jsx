@@ -134,7 +134,7 @@ const SignUpForm = () => {
       toast.success(res.data.message);
       setTimeout(() => {
         navigate("/dashboard");
-      }, 3000);
+      }, 5000);
     } catch (error) {
       console.error('Login error:', error);
       toast.error("An error occured!");

@@ -4,8 +4,8 @@ export const apiGetAchievements = async () => {
     return apiClient.get("/achievements");
 };
 
-export const apiAddAchievement = async (payload) => {
-    return apiClient.post("/achievements", payload);
+export const apiAddAchievement = async (id, payload) => {
+    return apiClient.patch(`/skills/${id}`, payload);
 };
 
 export const apiGetAchievementById = async (id) => {

@@ -4,8 +4,8 @@ export const apiGetExperiences = async () => {
     return apiClient.post("/experiences");
 };
 
-export const apiAddExperience = async (payload) => {
-    return apiClient.post("/experiences", payload);
+export const apiAddExperience = async (id, payload) => {
+    return apiClient.patch(`/skills/${id}`, payload);
 };
 
 export const apiGetExperienceById = async (id) => {

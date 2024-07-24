@@ -11,7 +11,6 @@ import Experiences from "./pages/dashboard/pages/experiences";
 import Profile from "./pages/dashboard/pages/profile";
 import Education from "./pages/dashboard/pages/education";
 import Volunteering from "./pages/dashboard/pages/volunteering";
-import Dashboard from "./pages/dashboard";
 import Preview from "./pages/preview";
 import Landing from "./pages/landing";
 import AddSkill from "./pages/dashboard/pages/addSkill";
@@ -20,6 +19,10 @@ import AddAchievement from "./pages/dashboard/pages/addAchievement";
 import AddExperience from "./pages/dashboard/pages/addExperience";
 import AddVolunteering from "./pages/dashboard/pages/addVolunteering";
 import AddEducation from "./pages/dashboard/pages/addEducation";
+import AuthLayout from "./pages/preview/";
+import { LogOut } from "lucide-react"; 
+import { apiGetUserDetails } from "./services/preview";
+import { toast } from "react-toastify"; 
 
 function App() {
   const router = createBrowserRouter([
@@ -27,14 +30,19 @@ function App() {
       path: '/',
       element: <Landing />
     },
-    {
-      path: "sign-up",
-      element: <SignUp />,
-    },
-    {
-      path: "login",
-      element: <Login />,
-    },
+    // {
+    //   element: <AuthLayout />,
+    //   children: [
+        // {
+        //   path: "login",
+        //   element: <Login />,
+        // },
+        {
+          path: "signup",
+          element: <SignUp />,
+        },
+    //   ],
+    // },
     {
       path: "dashboard",
       element: <DashboardLayout />,
@@ -42,10 +50,6 @@ function App() {
         {
           index: true,
           element: <Overview />,
-        },
-        {
-          path: "dashboard",
-          element: <Dashboard />,
         },
         {
           path: "skills",
@@ -80,6 +84,10 @@ function App() {
           element: <Volunteering />,
         },
         {
+          path: "logout",
+          element: <LogOut />,
+        },
+        {
           path: "skills/add-skill",
           element: <AddSkill />,
         },
@@ -102,6 +110,21 @@ function App() {
         {
           path: "projects/add-project",
           element: <AddProject />,
+        },
+        {
+          path: "preview/:username",
+          element: <Preview />,
+          loader: async ({ params }) => {
+            const username = params.username;
+            try {
+              const response = await apiGetUserDetails(username);
+              const userProfileData = response?.data.user;
+              return userProfileData;
+            } catch (error) {
+              toast.error("An error occurred");
+              return null;
+            }
+          },
         },
       ],
     },

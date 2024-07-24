@@ -14,7 +14,7 @@ const AddSkill = () => {
         try {
             const res = await apiAddSkill({
                 name: data.name,
-                levelOfProficiency: data.proficiency.toLowerCase(),
+                levelOfProficiency: data.proficiency,
             });
 
             console.log(res.data);

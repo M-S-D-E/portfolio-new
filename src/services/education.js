@@ -4,8 +4,8 @@ export const apiGetEducation = async () => {
     return apiClient.get("/education");
 };
 
-export const apiAddEducation = async (payload) => {
-    return apiClient.post("/education", payload);
+export const apiAddEducation = async (id, payload) => {
+    return apiClient.patch(`/education/${id}`, payload);
 };
 
 export const apiGetEducationById = async (id) => {
