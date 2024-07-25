@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Edit3, Trash2 } from 'lucide-react';
 import ProjectsCard from '../../../components/projectsCard';
 import PagesLayout from '../layouts/pagesLayout';
+import { useNavigate } from 'react-router-dom';
 
 const Projects = () => {
   const initialProjects = [
@@ -16,6 +17,7 @@ const Projects = () => {
     { id: 9, title: 'React Project', description: 'Advanced', proficiency: 'Advanced' },
   ];
 
+  const navigate = useNavigate();
   const [projects, setProjects] = useState(initialProjects);
   const [isEditing, setIsEditing] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
@@ -49,7 +51,7 @@ const Projects = () => {
   };
 
   return (
-    <PagesLayout headerText="Projects" buttonText="Add New Project">
+    <PagesLayout headerText="Projects" buttonText="Add New Project "  onClick={() => navigate("/dashboard/projects/add-project")}>
       <div className=" bg-gray-100 min-h-screen text-center p-12">
         <h2 className="text-3xl font-semibold mb-6">All Projects</h2>
         <p className="text-lg mb-8">Here, you can see all your projects.</p>
