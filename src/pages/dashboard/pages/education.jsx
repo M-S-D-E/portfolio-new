@@ -53,8 +53,8 @@ const Education = () => {
             {education.map((education, index) => (
               <EducationCard
                 key={index}
-                title={education.title}
-                description={education.description}
+                title={education.schoolName}
+                description={education.location}
                 deleted={education.deleted}
                 edit={education.edit}
               />

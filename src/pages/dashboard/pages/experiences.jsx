@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import PagesLayout from '../layouts/pagesLayout';
 import ExperienceCard from '../../../components/experienceCard';
 import { Edit3, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Experiences = () => {
   const initialExperiences = [
     { id: 1, title: 'Software Engineer at XYZ', description: 'Developed various applications.' },
     { id: 2, title: 'Frontend Developer at ABC', description: 'Created responsive websites.' },
   ];
-
+  const navigate = useNavigate();
   const [experiences, setExperiences] = useState(initialExperiences);
   const [isEditing, setIsEditing] = useState(false);
   const [currentExperience, setCurrentExperience] = useState(null);
@@ -42,7 +43,7 @@ const Experiences = () => {
   };
 
   return (
-    <PagesLayout headerText="Experiences" buttonText="Add New Experience">
+    <PagesLayout headerText="Experiences" buttonText="Add New Experience " onClick={() => navigate("/dashboard/experiences/add-experience")}>
       <div className=" bg-gray-100 min-h-screen text-center p-12">
         <h2 className="text-3xl font-semibold mb-6">All Experiences</h2>
         <p className="text-lg mb-8">Here, you can see all your experiences.</p>

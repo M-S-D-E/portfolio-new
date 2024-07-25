@@ -42,14 +42,14 @@ const OverviewSection = () => {
         apiGetEducation(),
         apiGetExperiences(),
       ]);
-
+      
       const newData = {
         skills: totalSkills.length,
         projects: totalProjects.length,
         achievements: totalAchievements.length,
         volunteering: totalVolunteering.length,
-        education: totalEducation.length,
-        experiences: totalExperiences.length,
+        education: totalEducation.data.education.length,
+        experiences: totalExperiences.data.experiences.length,
       };
 
       setData(newData);
