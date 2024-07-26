@@ -2,8 +2,10 @@ import React from 'react';
 import { Edit3, DeleteIcon } from 'lucide-react';
 import AchievementsCard from '../../../components/achievementsCard';
 import PagesLayout from '../layouts/pagesLayout';
+import { useNavigate } from 'react-router-dom';
 
 const Achievements = () => {
+  const navigate = useNavigate();
   const achievements = Array(8).fill({
     title: 'Achievement Title',
     description: 'A brief description of the achievement goes here.',
@@ -12,7 +14,7 @@ const Achievements = () => {
   });
 
   return (
-    <PagesLayout headerText="Achievements" buttonText="Add New Achievement">
+    <PagesLayout headerText="Achievements" buttonText="Add New Achievement" onClick={() => navigate("/dashboard/achievements/add-achievement")}>
       <div className=" bg-gray-100 min-h-screen text-center p-12 ">
         <h2 className="text-3xl font-semibold mb-6 text-gray-800">All Achievements</h2>
         <p className="text-gray-600 mb-6">Hey, here are your achievements!</p>
