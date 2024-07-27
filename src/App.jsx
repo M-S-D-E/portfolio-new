@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignUp from "./pages/sign-up";
-import Login from "./pages/login";
+import SignUpForm from "./pages/auth/signUp";
 import Overview from "./pages/dashboard/pages/overview";
 import Skills from "./pages/dashboard/pages/skills";
 import DashboardLayout from "./pages/dashboard/layouts";
@@ -19,7 +18,7 @@ import AddAchievement from "./pages/dashboard/pages/addAchievement";
 import AddExperience from "./pages/dashboard/pages/addExperience";
 import AddVolunteering from "./pages/dashboard/pages/addVolunteering";
 import AddEducation from "./pages/dashboard/pages/addEducation";
-import AuthLayout from "./pages/preview/";
+import AuthLayout from "./pages/auth/layouts/authLayout";
 import { LogOut } from "lucide-react"; 
 import { apiGetUserDetails } from "./services/preview";
 import { toast } from "react-toastify"; 
@@ -30,19 +29,15 @@ function App() {
       path: '/',
       element: <Landing />
     },
-    // {
-    //   element: <AuthLayout />,
-    //   children: [
-        // {
-        //   path: "login",
-        //   element: <Login />,
-        // },
+    {
+      element: <AuthLayout />,
+      children: [
         {
           path: "signup",
-          element: <SignUp />,
+          element: <SignUpForm />,
         },
-    //   ],
-    // },
+      ],
+    },
     {
       path: "dashboard",
       element: <DashboardLayout />,
