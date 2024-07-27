@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import loginImage from '../../assets/images/login.jpg';
+import loginImage from "../../assets/images/login.jpg";
 import { apiCheckUsernameExists, apiLogin, apiSignUp } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -121,6 +121,14 @@ const SignUpForm = () => {
     }
   };
 
+
+  const addToLocalStorage = (accessToken, user) => {
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("firstName", user.firstName);
+    localStorage.setItem("lastName", user.lastName);
+    localStorage.setItem("userName", user.userName);
+  };
+
   const handleLoginSubmit = async (data) => {
     setIsSubmitting(true);
     try {
@@ -129,7 +137,7 @@ const SignUpForm = () => {
         password: data.password,
       });
       console.log("Response: ", res.data);
-      localStorage.setItem("accessToken", res.data.acessToken);
+      addToLocalStorage(res.data.accessToken, res.data.user);
 
       toast.success(res.data.message);
       setTimeout(() => {
