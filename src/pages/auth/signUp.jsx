@@ -122,8 +122,8 @@ const SignUpForm = () => {
   };
 
 
-  const addToLocalStorage = (accessToken, user) => {
-    localStorage.setItem("accessToken", accessToken);
+  const addToLocalStorage = (acessToken, user) => {
+    localStorage.setItem("accessToken", acessToken);
     localStorage.setItem("firstName", user.firstName);
     localStorage.setItem("lastName", user.lastName);
     localStorage.setItem("userName", user.userName);
@@ -137,7 +137,7 @@ const SignUpForm = () => {
         password: data.password,
       });
       console.log("Response: ", res.data);
-      addToLocalStorage(res.data.accessToken, res.data.user);
+      addToLocalStorage(res.data.acessToken, res.data.user);
 
       toast.success(res.data.message);
       setTimeout(() => {
