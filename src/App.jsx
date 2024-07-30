@@ -106,27 +106,28 @@ function App() {
           path: "projects/add-project",
           element: <AddProject />,
         },
-        {
-          path: "preview/:username",
-          element: <Preview />,
-          loader: async ({ params }) => {
-            const username = params.username;
-            try {
-              const response = await apiGetUserDetails(username);
-              const userProfileData = response?.data.user;
-              return userProfileData;
-            } catch (error) {
-              toast.error("An error occurred");
-              return null;
-            }
-          },
-        },
+      
       ],
     },
     {
-      path: "preview",
-      element: <Preview />
-    }
+      path: "preview/:username",
+      element: <Preview />,
+      loader: async ({ params }) => {
+        const username = params.username;
+        try {
+          const response = await apiGetUserDetails(username);
+          const userProfileData = response?.data.user;
+          return userProfileData;
+        } catch (error) {
+          toast.error("An error occurred");
+          return null;
+        }
+      },
+    },
+    // {
+    //   path: "preview",
+    //   element: <Preview />
+    // }
   ]);
 
   return <RouterProvider router={router} />;
