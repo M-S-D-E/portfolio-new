@@ -141,7 +141,7 @@ const OverviewSection = () => {
             >
               <button
                 className="py-2 px-6 bg-blue-800 text-white rounded-lg shadow-lg hover:bg-blue-600 transition duration-300"
-                onClick={() => navigate('/preview')}
+                onClick={() => navigate('preview/:username')}
               >
                 Preview Page
               </button>

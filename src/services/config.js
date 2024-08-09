@@ -52,9 +52,9 @@ apiClient.interceptors.response.use(
     // If there's an error in the response (like a 401), handle it here
     if (error.response.status === 401) {
       // remove accessToken from local storage
-      clearDetails();
+      // clearDetails();
       // Handle 401 error (e.g., logout user and redirect to login page)
-      window.location.replace("/signup");
+      // window.location.replace("/signup");
     }
     if (error.response.status === 404) {
       toast.error("Not found");
