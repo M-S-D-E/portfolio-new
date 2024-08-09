@@ -42,14 +42,14 @@ const OverviewSection = () => {
         apiGetEducation(),
         apiGetExperiences(),
       ]);
-
+      
       const newData = {
         skills: totalSkills.length,
-        projects: totalProjects.length,
-        achievements: totalAchievements.length,
+        projects: totalProjects.data.projects.length,
+        achievements: totalAchievements.data.achievements.length,
         volunteering: totalVolunteering.length,
-        education: totalEducation.length,
-        experiences: totalExperiences.length,
+        education: totalEducation.data.education.length,
+        experiences: totalExperiences.data.experiences.length,
       };
 
       setData(newData);
@@ -145,11 +145,11 @@ const OverviewSection = () => {
               >
                 Preview Page
               </button>
-              <CountUp
+              {/* <CountUp
                   className="text-2xl font-semibold"
                   start={0}
                   end={100}
-                />
+                /> */}
             </motion.div>
           </div>
         </motion.section>

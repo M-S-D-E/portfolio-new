@@ -9,19 +9,21 @@ const AddAchievement = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const onSubmit = async (data) => {
-        console.log(data);
         setIsSubmitting(true);
         try {
-            const res = await apiAddAchievement({
-                name: data.name,
-                awards: data.awards,
-                description: data.description,
-                image: data.image,
-                date: data.date,
-                nameOfInstitution: data.nameOfInstitution,
+            const formData = new FormData();
+            formData.append('awards', data.awards);
+            formData.append('description', data.description);
+            formData.append('image', data.image[0]); // Assuming single file upload
+            formData.append('date', data.date);
+            formData.append('nameOfInstitution', data.nameOfInstitution);
+
+            const res = await apiAddAchievement(formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
 
-            console.log(res.data);
             toast.success(res.data.message);
         } catch (error) {
             console.log(error);
@@ -36,15 +38,6 @@ const AddAchievement = () => {
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
                 <h2 className="text-2xl font-semibold mb-6 text-center">Add New Achievement</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 font-semibold mb-2">Name</label>
-                        <input
-                            type="text"
-                            {...register('name', { required: 'Name is required' })}
-                            className="w-full p-2 border border-gray-300 rounded-lg"
-                        />
-                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
-                    </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 font-semibold mb-2">Awards</label>
                         <input
@@ -65,7 +58,7 @@ const AddAchievement = () => {
                     <div className="mb-4">
                         <label className="block text-gray-700 font-semibold mb-2">Image</label>
                         <input
-                            type="text"
+                            type="file"
                             {...register('image', { required: 'Image is required' })}
                             className="w-full p-2 border border-gray-300 rounded-lg"
                         />

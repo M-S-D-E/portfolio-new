@@ -9,25 +9,28 @@ const AddProject = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const onSubmit = async (data) => {
-        console.log(data);
         setIsSubmitting(true);
         try {
-            const res = await apiAddProject({
-                image: data.image[0], 
-                projectName: data.projectName,
-                description: data.description,
-                contributors: data.contributors,
-                skill: data.skill,
-                link: data.link,
-                nameOfInstitution: data.nameOfInstitution,
-                startDate: data.startDate,
-                endDate: data.endDate,
+            const formData = new FormData();
+            formData.append('image', data.image[0]); // Assuming single file upload
+            formData.append('projectName', data.projectName);
+            formData.append('description', data.description);
+            formData.append('contributors', data.contributors);
+            formData.append('skill', data.skill);
+            formData.append('link', data.link);
+            formData.append('nameOfInstitution', data.nameOfInstitution);
+            formData.append('startDate', data.startDate);
+            formData.append('endDate', data.endDate);
+
+            const res = await apiAddProject(formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
 
-            console.log(res.data);
             toast.success(res.data.message);
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
             toast.error("An error occurred");
         } finally {
             setIsSubmitting(false);
@@ -121,7 +124,9 @@ const AddProject = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white p-2 rounded-lg">
+                        className="w-full bg-blue-600 text-white p-2 rounded-lg"
+                        disabled={isSubmitting}
+                    >
                         {isSubmitting ? <Loader /> : "Add Project"}
                     </button>
                 </form>

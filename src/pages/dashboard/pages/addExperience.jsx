@@ -4,7 +4,9 @@ import { apiAddExperience } from '../../../services/experiences';
 import { toast } from 'react-toastify';
 import Loader from '../../../components/Loader';
 
+
 const AddExperience = () => {
+    
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
