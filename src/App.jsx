@@ -22,6 +22,7 @@ import AuthLayout from "./pages/auth/layouts/authLayout";
 import { LogOut } from "lucide-react"; 
 import { apiGetUserDetails } from "./services/preview";
 import { toast } from "react-toastify"; 
+import AddProfile from "./pages/dashboard/pages/addProfile";
 
 function App() {
   const router = createBrowserRouter([
@@ -106,7 +107,10 @@ function App() {
           path: "projects/add-project",
           element: <AddProject />,
         },
-      
+        {
+          path: "profile/add-profile",
+          element: <AddProfile />
+        },
       ],
     },
     {
