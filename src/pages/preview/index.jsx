@@ -29,12 +29,21 @@ const containerVariants = {
 
 const educationData = [
   {
-    title: 'BSc Molecular Biology & Biotechnology',
-    institution: 'University of Cape Coast',
-    description: 'My expertise spans across various domains in molecular biology and biotechnology, encompassing areas such as genetic engineering, protein expression, bioinformatics, and cellular biology. This breadth allows me to conduct comprehensive research and develop innovative solutions tailored to specific scientific objectives and challenges.',
+    id: '66a2bfcf9f5f549831d676f1',
+    schoolName: 'University of Cape Coast',
+    program: 'BSc Molecular Biology & Biotechnology',
+    qualification: 'degree',
     location: 'Cape Coast',
+    grade: '100000000',
+    startDate: '2024-07-09',
+    endDate: '2024-07-31',
+    createdAt: '2024-07-25T21:12:47.257Z',
+    updatedAt: '2024-07-25T21:12:47.257Z',
+    user: '66a2babe9f5f549831d676b3',
   },
 ];
+
+
 
 const volunteeringData = [
   {
@@ -55,37 +64,23 @@ const experienceData = [
     location: 'Accra',
     responsibility: 'Interface development',
   },
+];
+
+const achievements = [
   {
-    title: 'AWS Cloud Practitioner',
-    company: 'Amalitech Ghana',
-    duration: 'Feb 2024 to April 2024',
-    description: [
-      'Skilled in designing scalable and secure cloud architectures using AWS services like EC2, S3, RDS, and Lambda.',
-      'Proficient in implementing cost-effective strategies, ensuring compliance with security standards.',
-      'Experienced in automating tasks using CloudFormation and Lambda.',
-      'Known for troubleshooting and resolving issues promptly.',
-      'Committed to ongoing learning and integrating the latest advancements in AWS technology.',
-    ],
-  },
-  {
-    title: 'IT Officer and Marketing Distributor',
-    company: 'Roxy Apps Limited',
-    duration: 'Jan 2020 to May 2021',
-    description: [
-      'Proficient in selling software applications to educational institutions, businesses, and workshops, consistently meeting or exceeding sales targets.',
-      'Organized and conducted comprehensive training sessions for clients to ensure effective software operation and troubleshooting.',
-      'Addressed and resolved software-related issues promptly, enhancing customer satisfaction and retention.',
-      'Proficient in running and installing essential software, including Windows and Microsoft Office. Skilled in diagnosing and resolving common IT errors.',
-    ],
+    id: '66a3bd7b20deb42688b9c953',
+    nameOfInstitution: 'north',
+    awards: 'ram',
+    description: 'achievements',
+    date: '2024-07-09',
+    createdAt: '2024-07-26T15:15:07.630Z',
+    updatedAt: '2024-07-26T15:15:07.630Z',
+    user: '66a2babe9f5f549831d676b3',
+    image: 'secure/uploads/15397',
   },
 ];
 
-const certificatesData = [
-  'IBM Web Development Certificate',
-  'AWS Cloud Practitioner Certificate',
-  'Coursera Certificate in Google Data Analytics and Cybersecurity',
-  'DataCamp Certificate in Introduction to Python, SQL, and Data Science',
-];
+
 
 const Preview = () => {
   const data = useLoaderData();
@@ -109,7 +104,9 @@ const Preview = () => {
     >
       <motion.main className="flex flex-col md:flex-row items-center justify-center text-center mt-8 px-4 md:px-8" variants={formVariants}>
         <div className="md:w-1/2 flex flex-col items-start text-left">
-          <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight mb-2" variants={formVariants}><span className="text-blue-400">{data.firstName}</span></motion.h1>
+          <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight mb-2" variants={formVariants}>
+            <span className="text-blue-400">{data.firstName} {data.lastName}</span>
+          </motion.h1>
           <motion.h2 className="text-2xl md:text-3xl font-semibold mb-4" variants={formVariants}>a Front-end Web Developer.</motion.h2>
           <motion.p className="text-lg md:text-xl mb-4" variants={formVariants}>
             A versatile professional with a passion for creativity and innovation. With a background in graphic design, web development, content creation, and AWS cloud computing, I bring a unique blend of skills to every project. Whether it's designing captivating visuals, developing engaging websites, creating compelling content, or crafting effective marketing strategies.
@@ -237,9 +234,9 @@ const Preview = () => {
           {activeTab === 'Education' && (
             <div>
               <h2 className="text-2xl font-bold mb-4">Education</h2>
-              {educationData.map((edu, index) => (
+              {data.education?.map((edu, index) => (
                 <div key={index} className="mb-4">
-                  <h3 className="text-xl font-semibold text-blue-400">{edu.title}</h3>
+                  <h3 className="text-xl font-semibold text-blue-400">{edu.program}</h3>
                   <p className="text-lg">{edu.institution} - {edu.location}</p>
                   <p className="mt-2">{edu.description}</p>
                 </div>
@@ -249,7 +246,7 @@ const Preview = () => {
           {activeTab === 'Volunteering' && (
             <div>
               <h2 className="text-2xl font-bold mb-4">Volunteering</h2>
-              {volunteeringData.map((edu, index) => (
+              {data.volunteering?.map((edu, index) => (
                 <div key={index} className="mb-4">
                   <h3 className="text-xl font-semibold text-blue-400">{edu.title}</h3>
                   <p className="text-lg">{edu.institution} - {edu.location}</p>
@@ -276,8 +273,12 @@ const Preview = () => {
             <div>
               <h2 className="text-2xl font-bold mb-4 text-blue-400">Achievements</h2>
               <ul className="list-disc list-inside">
-                {certificatesData.map((certificate, index) => (
-                  <li key={index} className="text-lg mb-1">{certificate}</li>
+                {data.achievements?.map((achievement) => (
+                  <li key={achievement.id} className="text-lg mb-1">
+                    <div className="font-bold">{achievement.awards}</div>
+                    <div className="text-sm">{achievement.description}</div>
+                    <div className="text-xs text-gray-500">Date: {achievement.date}</div>
+                  </li>
                 ))}
               </ul>
             </div>

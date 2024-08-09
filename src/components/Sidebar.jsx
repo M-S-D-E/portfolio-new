@@ -42,7 +42,7 @@ const Sidebar = () => {
         ))}
       </div>
       <button
-        className="flex gap-x-4 items-center mt-auto hover:bg-pink hover:text-white hover:rounded-md p-2"
+        className="flex gap-x-4 items-center mt-auto hover:bg-pink hover:rounded-md p-2"
         onClick={logout}
       >
         <span className="bg-pink text-white p-2 rounded-full">
