@@ -11,3 +11,11 @@ export const apiGetProfile = async () => {
 export const apiUpdateProfile = async (id, payload) => {
   return apiClient.patch(`/userProfile/${id}`, payload);
 };
+
+export const apiGetProfileById = async (id) => {
+  return apiClient.get(`/profile/${id}`);
+};
+
+export const apiDeleteProfile = async (id) => {
+  return apiClient.delete(`/profile/${id}`);
+}
